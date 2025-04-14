@@ -1,0 +1,60 @@
+# Bank management using a dictionary
+bank_data = {}
+
+def create_account():
+    acc_no = input("Enter Account Number: ")
+    if acc_no in bank_data:
+        print("Account already exists.")
+    else:
+        name = input("Enter Account Holder Name: ")
+        balance = float(input("Enter Initial Deposit: "))
+        bank_data[acc_no] = {'name': name, 'balance': balance}
+        print("Account created successfully.")
+
+def show_account():
+    acc_no = input("Enter Account Number: ")
+    account = bank_data.get(acc_no)
+    if account:
+        print(f"\nAccount Number: {acc_no}")
+        print(f"Name: {account['name']}")
+        print(f"Balance: ₹{account['balance']:.2f}")
+    else:
+        print("Account not found.")
+
+def deposit():
+    acc_no = input("Enter Account Number: ")
+    amount = float(input("Enter amount to deposit: "))
+    if acc_no in bank_data:
+        bank_data[acc_no]['balance'] += amount
+        print("Deposit successful.")
+    else:
+        print("Account not found.")
+
+def withdraw():
+    acc_no = input("Enter Account Number: ")
+    amount = float(input("Enter amount to withdraw: "))
+    if acc_no in bank_data:
+        if bank_data[acc_no]['balance'] >= amount:
+            bank_data[acc_no]['balance'] -= amount
+            print("Withdrawal successful.")
+        else:
+            print("Insufficient balance.")
+    else:
+        print("Account not found.")
+
+while True:
+    print("\n1. Create Account\n2. View Account\n3. Deposit\n4. Withdraw\n5. Exit")
+    choice = input("Enter choice: ")
+
+    if choice == '1':
+        create_account()
+    elif choice == '2':
+        show_account()
+    elif choice == '3':
+        deposit()
+    elif choice == '4':
+        withdraw()
+    elif choice == '5':
+        break
+    else:
+        print("Invalid option.")
